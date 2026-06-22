@@ -1,0 +1,7 @@
+venv/
+**pycache**/
+.env
+.vscode/
+.idea/
+*.pyc
+GALINACEOS.csv

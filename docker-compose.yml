@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: galinaceos_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: galinaceos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

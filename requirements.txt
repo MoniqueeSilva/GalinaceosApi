@@ -1,0 +1,7 @@
+flask
+flask-cors
+sqlalchemy
+psycopg2-binary
+pandas
+python-dotenv
+marshmallow
