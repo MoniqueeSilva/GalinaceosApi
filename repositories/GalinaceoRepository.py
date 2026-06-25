@@ -1,34 +1,48 @@
-from models.Galinaceo import Galinaceo
+from helpers.database import get_conn
+from helpers.logger import logger
 
 
-class GalinaceoRepository:
-    """
-    Camada responsável pelo acesso ao banco de dados.
-    Aqui ficam as consultas SQLAlchemy.
-    """
+class GalinaceoRepository():
+    def getAll(self, filtros):
+        conn = get_conn()
+        cursor = conn.cursor()
 
-    def __init__(self, session):
-        self.session = session
-
-    def get_all(self, filtros):
-        query = self.session.query(Galinaceo)
+        query = "SELECT id, sist_cria, niv_terr, cod_terr, nom_terr, cl_gal, nom_cl_gal, e_cria_gal, e_tem_gal, e_gal_vend, e_ovos_prod, e_ovos_vend, e_subs, e_comerc, e_recebe_ori, e_ori_gov, e_ori_propria, e_ori_coop, e_ori_emp_int, e_ori_emp_priv, e_ori_ong, e_ori_sist_s, e_ori_outra, e_gal_eng, e_gal_galos, e_gal_poed, e_gal_matr, e_assoc_coop, e_financ, e_financ_coop, e_financ_integ, e_dap, e_agrifam, e_n_agrifam, e_produtor, e_cooperativa, e_sa_ldta, e_cnpj, gal_total, gal_eng, gal_galos, gal_poed, gal_matr, gal_vend, v_gal_vend, q_dz_prod, q_dz_vend, v_q_dz_prod, v_q_dz_vend, a_total, a_past_plant, a_lav_perm, a_lav_temp, a_apprl, vtp_agro, rect_agro, n_trab_total, n_trab_lacos FROM tb_galinaceos"
+        condicoes = []
+        valores = []
 
         if filtros.get("SIST_CRIA"):
-            query = query.filter(Galinaceo.sist_cria == filtros["SIST_CRIA"])
+            condicoes.append("sist_cria = %s")
+            valores.append(filtros.get("SIST_CRIA"))
 
         if filtros.get("NIV_TERR"):
-            query = query.filter(Galinaceo.niv_terr == filtros["NIV_TERR"])
+            condicoes.append("niv_terr = %s")
+            valores.append(filtros.get("NIV_TERR"))
 
         if filtros.get("COD_TERR"):
-            query = query.filter(Galinaceo.cod_terr == filtros["COD_TERR"])
+            condicoes.append("cod_terr = %s")
+            valores.append(filtros.get("COD_TERR"))
 
         if filtros.get("NOM_TERR"):
-            query = query.filter(Galinaceo.nom_terr.ilike(f"%{filtros['NOM_TERR']}%"))
+            condicoes.append("nom_terr ILIKE %s")
+            valores.append(f"%{filtros.get('NOM_TERR')}%")
 
         if filtros.get("CL_GAL"):
-            query = query.filter(Galinaceo.cl_gal == filtros["CL_GAL"])
+            condicoes.append("cl_gal = %s")
+            valores.append(filtros.get("CL_GAL"))
 
-        return query.order_by(Galinaceo.id).all()
+        if len(condicoes) > 0:
+            query += " WHERE " + " AND ".join(condicoes)
 
-    def get_by_id(self, galinaceo_id):
-        return self.session.query(Galinaceo).filter(Galinaceo.id == galinaceo_id).first()
+        query += " ORDER BY id"
+
+        logger.info("Preparando consulta de galináceos")
+        cursor.execute(query, tuple(valores))
+        return cursor.fetchall()
+
+    def getByIdGalinaceo(self, id):
+        conn = get_conn()
+        cursor = conn.cursor()
+        logger.info("Preparando consulta por id")
+        cursor.execute("SELECT id, sist_cria, niv_terr, cod_terr, nom_terr, cl_gal, nom_cl_gal, e_cria_gal, e_tem_gal, e_gal_vend, e_ovos_prod, e_ovos_vend, e_subs, e_comerc, e_recebe_ori, e_ori_gov, e_ori_propria, e_ori_coop, e_ori_emp_int, e_ori_emp_priv, e_ori_ong, e_ori_sist_s, e_ori_outra, e_gal_eng, e_gal_galos, e_gal_poed, e_gal_matr, e_assoc_coop, e_financ, e_financ_coop, e_financ_integ, e_dap, e_agrifam, e_n_agrifam, e_produtor, e_cooperativa, e_sa_ldta, e_cnpj, gal_total, gal_eng, gal_galos, gal_poed, gal_matr, gal_vend, v_gal_vend, q_dz_prod, q_dz_vend, v_q_dz_prod, v_q_dz_vend, a_total, a_past_plant, a_lav_perm, a_lav_temp, a_apprl, vtp_agro, rect_agro, n_trab_total, n_trab_lacos FROM tb_galinaceos WHERE id=%s", (id,))
+        return cursor.fetchone()

@@ -1,17 +1,13 @@
 from flask import Blueprint, jsonify, request
 from services.GalinaceoService import GalinaceoService
+from helpers.logger import logger
 
 galinaceo_bp = Blueprint("galinaceo", __name__, url_prefix="/galinaceos")
 
 
 @galinaceo_bp.get("/")
-def get_galinaceos():
-    """
-    Lista todos os registros de galináceos.
-    Também aceita filtros pela URL:
-    /galinaceos?SIST_CRIA=...&NIV_TERR=...&COD_TERR=...&NOM_TERR=...&CL_GAL=...
-    """
-
+def getGalinaceos():
+    logger.info("Listando os registros de galináceos")
     filtros = {
         "SIST_CRIA": request.args.get("SIST_CRIA"),
         "NIV_TERR": request.args.get("NIV_TERR"),
@@ -20,21 +16,15 @@ def get_galinaceos():
         "CL_GAL": request.args.get("CL_GAL"),
     }
 
-    resultado = GalinaceoService().get_all(filtros)
+    galinaceos = GalinaceoService().getAll(filtros)
+    return [g.toDict() for g in galinaceos], 200
 
-    return jsonify({
-        "total": len(resultado),
-        "dados": resultado
-    }), 200
+@galinaceo_bp.get("/<int:id>")
+def getByIdGalinaceos(id:int):
+    logger.info(f"Listando galináceos pelo if: {id}")
+    galinaceo = GalinaceoService().getByIdGalinaceo(id)
 
+    if galinaceo is None:
+        return {"mensagem": "O registro não foi encontrado"}, 404
 
-@galinaceo_bp.get("/<int:galinaceo_id>")
-def get_galinaceo_by_id(galinaceo_id):
-    """Busca um registro pelo ID."""
-
-    resultado = GalinaceoService().get_by_id(galinaceo_id)
-
-    if resultado is None:
-        return jsonify({"mensagem": "Registro não encontrado"}), 404
-
-    return jsonify(resultado), 200
+    return galinaceo.toDict(), 200

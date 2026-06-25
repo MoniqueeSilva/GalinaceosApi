@@ -1,102 +1,41 @@
 # GalinaceosApi
 
-API Flask com endpoint `/galinaceos`, filtros por query params e persistência no PostgreSQL usando Docker.
+API Flask para consulta dos dados de galináceos da Embrapa.
 
-## Filtros exigidos
+A estrutura segue o mesmo padrão da aplicação de Avicultores da branch sqlite do professor:
 
-- `SIST_CRIA`
-- `NIV_TERR`
-- `COD_TERR`
-- `NOM_TERR`
-- `CL_GAL`
+- controllers
+- services
+- repositories
+- models
+- helpers
 
-## Como executar
-
-### 1. Subir o PostgreSQL
+## Executar
 
 ```bash
-docker compose up -d
-```
-
-### 2. Criar ambiente virtual
-
-```bash
+docker-compose up -d
 python3 -m venv venv
 source venv/bin/activate
-```
-
-No Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-### 3. Instalar dependências
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Importar o CSV para o banco
-
-```bash
+pip install -r requiriments.txt
+cp .env.example .env
+python init_db_schema.py
 python seed/importar_csv.py
-```
-
-### 5. Rodar a API
-
-```bash
 python app.py
 ```
 
-A API ficará disponível em:
+## Endpoints
 
-```text
-http://localhost:5000
+```txt
+GET /galinaceos/
+GET /galinaceos/<id>
 ```
 
-## Exemplos de uso
+## Filtros
 
-Listar todos:
-
-```text
-http://localhost:5000/galinaceos
+```txt
+GET /galinaceos/?SIST_CRIA=1-SIST_POC
+GET /galinaceos/?NIV_TERR=BR
+GET /galinaceos/?COD_TERR=25
+GET /galinaceos/?NOM_TERR=Brasil
+GET /galinaceos/?CL_GAL=1
 ```
-
-Filtrar por território:
-
-```text
-http://localhost:5000/galinaceos?NOM_TERR=Paraíba
-```
-
-Filtrar por classe:
-
-```text
-http://localhost:5000/galinaceos?CL_GAL=1
-```
-
-Filtrar por múltiplos campos:
-
-```text
-http://localhost:5000/galinaceos?NIV_TERR=UF&COD_TERR=25
-```
-
-Buscar por ID:
-
-```text
-http://localhost:5000/galinaceos/1
-```
-
-## Arquitetura
-
-O projeto segue a estrutura em camadas usada em aula:
-
-```text
-Controller -> Service -> Repository -> Model -> Database
-```
-
-- **Controller:** recebe as requisições HTTP.
-- **Service:** concentra a regra de negócio.
-- **Repository:** consulta o banco.
-- **Model:** representa a tabela.
-- **Database:** configura a conexão com PostgreSQL.

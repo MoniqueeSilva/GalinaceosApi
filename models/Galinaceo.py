@@ -1,75 +1,67 @@
 from marshmallow import Schema, fields
-from sqlalchemy import Column, Integer, String
-from helpers.database import Base
 
+class Galinaceo():
+    def __init__(self, id, sist_cria, niv_terr, cod_terr, nom_terr, cl_gal, nom_cl_gal, e_cria_gal, e_tem_gal, e_gal_vend, e_ovos_prod, e_ovos_vend, e_subs, e_comerc, e_recebe_ori, e_ori_gov, e_ori_propria, e_ori_coop, e_ori_emp_int, e_ori_emp_priv, e_ori_ong, e_ori_sist_s, e_ori_outra, e_gal_eng, e_gal_galos, e_gal_poed, e_gal_matr, e_assoc_coop, e_financ, e_financ_coop, e_financ_integ, e_dap, e_agrifam, e_n_agrifam, e_produtor, e_cooperativa, e_sa_ldta, e_cnpj, gal_total, gal_eng, gal_galos, gal_poed, gal_matr, gal_vend, v_gal_vend, q_dz_prod, q_dz_vend, v_q_dz_prod, v_q_dz_vend, a_total, a_past_plant, a_lav_perm, a_lav_temp, a_apprl, vtp_agro, rect_agro, n_trab_total, n_trab_lacos):
+        self.id = id
+        self.sist_cria = sist_cria
+        self.niv_terr = niv_terr
+        self.cod_terr = cod_terr
+        self.nom_terr = nom_terr
+        self.cl_gal = cl_gal
+        self.nom_cl_gal = nom_cl_gal
+        self.e_cria_gal = e_cria_gal
+        self.e_tem_gal = e_tem_gal
+        self.e_gal_vend = e_gal_vend
+        self.e_ovos_prod = e_ovos_prod
+        self.e_ovos_vend = e_ovos_vend
+        self.e_subs = e_subs
+        self.e_comerc = e_comerc
+        self.e_recebe_ori = e_recebe_ori
+        self.e_ori_gov = e_ori_gov
+        self.e_ori_propria = e_ori_propria
+        self.e_ori_coop = e_ori_coop
+        self.e_ori_emp_int = e_ori_emp_int
+        self.e_ori_emp_priv = e_ori_emp_priv
+        self.e_ori_ong = e_ori_ong
+        self.e_ori_sist_s = e_ori_sist_s
+        self.e_ori_outra = e_ori_outra
+        self.e_gal_eng = e_gal_eng
+        self.e_gal_galos = e_gal_galos
+        self.e_gal_poed = e_gal_poed
+        self.e_gal_matr = e_gal_matr
+        self.e_assoc_coop = e_assoc_coop
+        self.e_financ = e_financ
+        self.e_financ_coop = e_financ_coop
+        self.e_financ_integ = e_financ_integ
+        self.e_dap = e_dap
+        self.e_agrifam = e_agrifam
+        self.e_n_agrifam = e_n_agrifam
+        self.e_produtor = e_produtor
+        self.e_cooperativa = e_cooperativa
+        self.e_sa_ldta = e_sa_ldta
+        self.e_cnpj = e_cnpj
+        self.gal_total = gal_total
+        self.gal_eng = gal_eng
+        self.gal_galos = gal_galos
+        self.gal_poed = gal_poed
+        self.gal_matr = gal_matr
+        self.gal_vend = gal_vend
+        self.v_gal_vend = v_gal_vend
+        self.q_dz_prod = q_dz_prod
+        self.q_dz_vend = q_dz_vend
+        self.v_q_dz_prod = v_q_dz_prod
+        self.v_q_dz_vend = v_q_dz_vend
+        self.a_total = a_total
+        self.a_past_plant = a_past_plant
+        self.a_lav_perm = a_lav_perm
+        self.a_lav_temp = a_lav_temp
+        self.a_apprl = a_apprl
+        self.vtp_agro = vtp_agro
+        self.rect_agro = rect_agro
+        self.n_trab_total = n_trab_total
+        self.n_trab_lacos = n_trab_lacos
 
-class Galinaceo(Base):
-    """
-    Modelo que representa uma linha da tabela GALINACEOS.
-    As colunas foram mantidas como texto para preservar exatamente os valores do CSV.
-    """
-    __tablename__ = "galinaceos"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    sist_cria = Column(String)
-    niv_terr = Column(String)
-    cod_terr = Column(String)
-    nom_terr = Column(String)
-    cl_gal = Column(String)
-    nom_cl_gal = Column(String)
-    e_cria_gal = Column(String)
-    e_tem_gal = Column(String)
-    e_gal_vend = Column(String)
-    e_ovos_prod = Column(String)
-    e_ovos_vend = Column(String)
-    e_subs = Column(String)
-    e_comerc = Column(String)
-    e_recebe_ori = Column(String)
-    e_ori_gov = Column(String)
-    e_ori_propria = Column(String)
-    e_ori_coop = Column(String)
-    e_ori_emp_int = Column(String)
-    e_ori_emp_priv = Column(String)
-    e_ori_ong = Column(String)
-    e_ori_sist_s = Column(String)
-    e_ori_outra = Column(String)
-    e_gal_eng = Column(String)
-    e_gal_galos = Column(String)
-    e_gal_poed = Column(String)
-    e_gal_matr = Column(String)
-    e_assoc_coop = Column(String)
-    e_financ = Column(String)
-    e_financ_coop = Column(String)
-    e_financ_integ = Column(String)
-    e_dap = Column(String)
-    e_agrifam = Column(String)
-    e_n_agrifam = Column(String)
-    e_produtor = Column(String)
-    e_cooperativa = Column(String)
-    e_sa_ldta = Column(String)
-    e_cnpj = Column(String)
-    gal_total = Column(String)
-    gal_eng = Column(String)
-    gal_galos = Column(String)
-    gal_poed = Column(String)
-    gal_matr = Column(String)
-    gal_vend = Column(String)
-    v_gal_vend = Column(String)
-    q_dz_prod = Column(String)
-    q_dz_vend = Column(String)
-    v_q_dz_prod = Column(String)
-    v_q_dz_vend = Column(String)
-    a_total = Column(String)
-    a_past_plant = Column(String)
-    a_lav_perm = Column(String)
-    a_lav_temp = Column(String)
-    a_apprl = Column(String)
-    vtp_agro = Column(String)
-    rect_agro = Column(String)
-    n_trab_total = Column(String)
-    n_trab_lacos = Column(String)
-
-    def to_dict(self):
+    def toDict(self):
         return {
             "id": self.id,
             "SIST_CRIA": self.sist_cria,
@@ -128,66 +120,66 @@ class Galinaceo(Base):
             "VTP_AGRO": self.vtp_agro,
             "RECT_AGRO": self.rect_agro,
             "N_TRAB_TOTAL": self.n_trab_total,
-            "N_TRAB_LACOS": self.n_trab_lacos
+            "N_TRAB_LACOS": self.n_trab_lacos,
         }
 
 
 class GalinaceoSchema(Schema):
     id = fields.Integer(dump_only=True)
-    sist_cria = fields.String(allow_none=True)
-    niv_terr = fields.String(allow_none=True)
-    cod_terr = fields.String(allow_none=True)
-    nom_terr = fields.String(allow_none=True)
-    cl_gal = fields.String(allow_none=True)
-    nom_cl_gal = fields.String(allow_none=True)
-    e_cria_gal = fields.String(allow_none=True)
-    e_tem_gal = fields.String(allow_none=True)
-    e_gal_vend = fields.String(allow_none=True)
-    e_ovos_prod = fields.String(allow_none=True)
-    e_ovos_vend = fields.String(allow_none=True)
-    e_subs = fields.String(allow_none=True)
-    e_comerc = fields.String(allow_none=True)
-    e_recebe_ori = fields.String(allow_none=True)
-    e_ori_gov = fields.String(allow_none=True)
-    e_ori_propria = fields.String(allow_none=True)
-    e_ori_coop = fields.String(allow_none=True)
-    e_ori_emp_int = fields.String(allow_none=True)
-    e_ori_emp_priv = fields.String(allow_none=True)
-    e_ori_ong = fields.String(allow_none=True)
-    e_ori_sist_s = fields.String(allow_none=True)
-    e_ori_outra = fields.String(allow_none=True)
-    e_gal_eng = fields.String(allow_none=True)
-    e_gal_galos = fields.String(allow_none=True)
-    e_gal_poed = fields.String(allow_none=True)
-    e_gal_matr = fields.String(allow_none=True)
-    e_assoc_coop = fields.String(allow_none=True)
-    e_financ = fields.String(allow_none=True)
-    e_financ_coop = fields.String(allow_none=True)
-    e_financ_integ = fields.String(allow_none=True)
-    e_dap = fields.String(allow_none=True)
-    e_agrifam = fields.String(allow_none=True)
-    e_n_agrifam = fields.String(allow_none=True)
-    e_produtor = fields.String(allow_none=True)
-    e_cooperativa = fields.String(allow_none=True)
-    e_sa_ldta = fields.String(allow_none=True)
-    e_cnpj = fields.String(allow_none=True)
-    gal_total = fields.String(allow_none=True)
-    gal_eng = fields.String(allow_none=True)
-    gal_galos = fields.String(allow_none=True)
-    gal_poed = fields.String(allow_none=True)
-    gal_matr = fields.String(allow_none=True)
-    gal_vend = fields.String(allow_none=True)
-    v_gal_vend = fields.String(allow_none=True)
-    q_dz_prod = fields.String(allow_none=True)
-    q_dz_vend = fields.String(allow_none=True)
-    v_q_dz_prod = fields.String(allow_none=True)
-    v_q_dz_vend = fields.String(allow_none=True)
-    a_total = fields.String(allow_none=True)
-    a_past_plant = fields.String(allow_none=True)
-    a_lav_perm = fields.String(allow_none=True)
-    a_lav_temp = fields.String(allow_none=True)
-    a_apprl = fields.String(allow_none=True)
-    vtp_agro = fields.String(allow_none=True)
-    rect_agro = fields.String(allow_none=True)
-    n_trab_total = fields.String(allow_none=True)
-    n_trab_lacos = fields.String(allow_none=True)
+    sist_cria = fields.Str(allow_none=True)
+    niv_terr = fields.Str(allow_none=True)
+    cod_terr = fields.Str(allow_none=True)
+    nom_terr = fields.Str(allow_none=True)
+    cl_gal = fields.Str(allow_none=True)
+    nom_cl_gal = fields.Str(allow_none=True)
+    e_cria_gal = fields.Str(allow_none=True)
+    e_tem_gal = fields.Str(allow_none=True)
+    e_gal_vend = fields.Str(allow_none=True)
+    e_ovos_prod = fields.Str(allow_none=True)
+    e_ovos_vend = fields.Str(allow_none=True)
+    e_subs = fields.Str(allow_none=True)
+    e_comerc = fields.Str(allow_none=True)
+    e_recebe_ori = fields.Str(allow_none=True)
+    e_ori_gov = fields.Str(allow_none=True)
+    e_ori_propria = fields.Str(allow_none=True)
+    e_ori_coop = fields.Str(allow_none=True)
+    e_ori_emp_int = fields.Str(allow_none=True)
+    e_ori_emp_priv = fields.Str(allow_none=True)
+    e_ori_ong = fields.Str(allow_none=True)
+    e_ori_sist_s = fields.Str(allow_none=True)
+    e_ori_outra = fields.Str(allow_none=True)
+    e_gal_eng = fields.Str(allow_none=True)
+    e_gal_galos = fields.Str(allow_none=True)
+    e_gal_poed = fields.Str(allow_none=True)
+    e_gal_matr = fields.Str(allow_none=True)
+    e_assoc_coop = fields.Str(allow_none=True)
+    e_financ = fields.Str(allow_none=True)
+    e_financ_coop = fields.Str(allow_none=True)
+    e_financ_integ = fields.Str(allow_none=True)
+    e_dap = fields.Str(allow_none=True)
+    e_agrifam = fields.Str(allow_none=True)
+    e_n_agrifam = fields.Str(allow_none=True)
+    e_produtor = fields.Str(allow_none=True)
+    e_cooperativa = fields.Str(allow_none=True)
+    e_sa_ldta = fields.Str(allow_none=True)
+    e_cnpj = fields.Str(allow_none=True)
+    gal_total = fields.Str(allow_none=True)
+    gal_eng = fields.Str(allow_none=True)
+    gal_galos = fields.Str(allow_none=True)
+    gal_poed = fields.Str(allow_none=True)
+    gal_matr = fields.Str(allow_none=True)
+    gal_vend = fields.Str(allow_none=True)
+    v_gal_vend = fields.Str(allow_none=True)
+    q_dz_prod = fields.Str(allow_none=True)
+    q_dz_vend = fields.Str(allow_none=True)
+    v_q_dz_prod = fields.Str(allow_none=True)
+    v_q_dz_vend = fields.Str(allow_none=True)
+    a_total = fields.Str(allow_none=True)
+    a_past_plant = fields.Str(allow_none=True)
+    a_lav_perm = fields.Str(allow_none=True)
+    a_lav_temp = fields.Str(allow_none=True)
+    a_apprl = fields.Str(allow_none=True)
+    vtp_agro = fields.Str(allow_none=True)
+    rect_agro = fields.Str(allow_none=True)
+    n_trab_total = fields.Str(allow_none=True)
+    n_trab_lacos = fields.Str(allow_none=True)

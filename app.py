@@ -1,37 +1,18 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
-
+from helpers.application import app
 from controllers.GalinaceoController import galinaceo_bp
-from helpers.database import init_db
 
 
-def create_app():
-    app = Flask(__name__)
-    CORS(app)
-
-    init_db()
-
-    app.register_blueprint(galinaceo_bp)
-
-    @app.get("/")
-    def index():
-        return jsonify({
-            "mensagem": "API GalinaceosApi funcionando",
-            "endpoints": [
-                "/galinaceos",
-                "/galinaceos/<id>",
-                "/health"
-            ]
-        }), 200
-
-    @app.get("/health")
-    def health():
-        return jsonify({"status": "ok"}), 200
-
-    return app
+@app.get("/")
+def index():
+    return {"versao": "1.0.0", "projeto": "GalinaceosApi"}, 200
 
 
-app = create_app()
+@app.get("/health")
+def healthCheck():
+    return {"online": "true"}, 200
+
+
+app.register_blueprint(galinaceo_bp)
 
 
 if __name__ == "__main__":
