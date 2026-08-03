@@ -3,6 +3,7 @@ from helpers.database import db
 
 from models.Galinaceo import Galinaceo
 from models.Avicultor import Avicultor
+from models.Avicola import Avicola
 
 from controllers.GalinaceoController import (
     GalinaceosController,
@@ -12,6 +13,11 @@ from controllers.GalinaceoController import (
 from controllers.AvicultorController import (
     AvicultoresController,
     AvicultorController
+)
+
+from controllers.AvicolaController import (
+    AvicolasController,
+    AvicolaController
 )
 
 @app.get("/")
@@ -28,6 +34,9 @@ api.add_resource(GalinaceoController, "/galinaceos/<int:id>")
 
 api.add_resource(AvicultoresController, "/avicultores")
 api.add_resource(AvicultorController, "/avicultores/<int:id>")
+
+api.add_resource(AvicolasController, "/avicola")
+api.add_resource(AvicolaController, "/avicola/<int:id>")
 
 with app.app_context():
     db.create_all()
