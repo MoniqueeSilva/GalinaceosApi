@@ -1,51 +1,19 @@
 from marshmallow import Schema, fields
 from helpers.database import db
 
+from sqlalchemy.orm import Mapped, mapped_column
 
 class Galinaceo(db.Model):
     __tablename__ = "galinaceos"
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-        autoincrement=True
-    )
-
-    sist_cria = db.Column(
-        db.String,
-        nullable=True
-    )
-
-    niv_terr = db.Column(
-        db.String,
-        nullable=True
-    )
-
-    cod_terr = db.Column(
-        db.String,
-        nullable=True
-    )
-
-    nom_terr = db.Column(
-        db.String,
-        nullable=True
-    )
-
-    cl_gal = db.Column(
-        db.String,
-        nullable=True
-    )
-
-    nom_cl_gal = db.Column(
-        db.String,
-        nullable=True
-    )
-
-    gal_total = db.Column(
-        db.BigInteger,
-        nullable=True
-    )
-
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    sist_cria: Mapped[str | None] = mapped_column(db.String, nullable=True)
+    niv_terr: Mapped[str | None] = mapped_column(db.String, nullable=True)
+    cod_terr: Mapped[str | None] = mapped_column(db.String, nullable=True)
+    nom_terr: Mapped[str | None] = mapped_column(db.String, nullable=True)
+    cl_gal: Mapped[str | None] = mapped_column(db.String, nullable=True)
+    nom_cl_gal: Mapped[str | None] = mapped_column(db.String, nullable=True)
+    gal_total: Mapped[int | None] = mapped_column(db.BigInteger, nullable=True)
 
     def toDict(self):
         return {
@@ -59,10 +27,7 @@ class Galinaceo(db.Model):
             "gal_total": self.gal_total
         }
 
-
-
 class GalinaceoSchema(Schema):
-
     id = fields.Int(dump_only=True)
     sist_cria = fields.Str(allow_none=True)
     niv_terr = fields.Str(allow_none=True)

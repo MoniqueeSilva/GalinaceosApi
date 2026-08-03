@@ -1,46 +1,21 @@
 from helpers.database import db
-from sqlalchemy.orm import Mapped, mapped_column
-
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 class Endereco(db.Model):
     __tablename__ = "enderecos"
 
-    id: Mapped[int] = mapped_column(
-        primary_key=True,
-        autoincrement=True
-    )
-
-    logradouro: Mapped[str] = mapped_column(
-        nullable=False
-    )
-
-    numero: Mapped[str] = mapped_column(
-        nullable=False
-    )
-
-
-    bairro: Mapped[str] = mapped_column(
-        nullable=True
-    )
-
-
-    cidade: Mapped[str] = mapped_column(
-        nullable=False
-    )
-
-
-    estado: Mapped[str] = mapped_column(
-        nullable=False
-    )
-
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    logradouro: Mapped[str] = mapped_column(db.String, nullable=False)
+    cep: Mapped[str] = mapped_column(db.String, nullable=False)
+    numero: Mapped[str] = mapped_column(db.String, nullable=False)
+    avicultor_id: Mapped[int] = mapped_column(db.ForeignKey("avicultores.id"), nullable=False)
+    avicultor: Mapped["Avicultor"] = relationship("Avicultor",back_populates="enderecos")
 
     def toDict(self):
-
         return {
             "id": self.id,
             "logradouro": self.logradouro,
+            "cep": self.cep,
             "numero": self.numero,
-            "bairro": self.bairro,
-            "cidade": self.cidade,
-            "estado": self.estado
+            "avicultor_id": self.avicultor_id
         }

@@ -5,9 +5,7 @@ class Avicola(db.Model):
     __tablename__ = "avicola"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-
     endereco: Mapped[str] = mapped_column(nullable=False)
-
     territorio: Mapped[str] = mapped_column(nullable=False)
 
     def toDict(self):

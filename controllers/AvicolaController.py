@@ -15,16 +15,11 @@ class AvicolasController(Resource):
         avicolas = AvicolaService().getAll(filtros)
         return [a.toDict() for a in avicolas], 200
 
-
     def post(self):
         logger.info("Cadastrando avícola")
         dados = request.json
-        avicola = AvicolaService().create(
-            dados
-        )
-
+        avicola = AvicolaService().create(dados)
         return avicola.toDict(), 201
-
 class AvicolaController(Resource):
     def get(self, id):
         logger.info(

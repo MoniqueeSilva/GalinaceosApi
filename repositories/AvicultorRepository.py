@@ -10,9 +10,7 @@ class AvicultorRepository:
         if filtros:
             if filtros.get("nome"):
                 query = query.filter(
-                    Avicultor.nome.ilike(
-                        f"%{filtros.get('nome')}%"
-                    )
+                    Avicultor.nome.ilike(f"%{filtros.get('nome')}%")
                 )
 
             if filtros.get("cpf"):
@@ -35,12 +33,10 @@ class AvicultorRepository:
     def save(self, avicultor):
         db.session.add(avicultor)
         db.session.commit()
-
         return avicultor
 
     def update(self, avicultor):
         db.session.commit()
-
         return avicultor
 
     def delete(self, avicultor):

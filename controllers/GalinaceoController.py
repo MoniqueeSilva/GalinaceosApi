@@ -22,7 +22,6 @@ class GalinaceosController(Resource):
 class GalinaceoController(Resource):
     def get(self, id):
         logger.info(f"Listando galináceos pelo id: {id}")
-        
         galinaceo = GalinaceoService().getByIdGalinaceo(id)
 
         if galinaceo is None:

@@ -4,53 +4,21 @@ from flask_restful import Resource
 from services.EnderecoService import EnderecoService
 from helpers.logger import logger
 
-
-
 class EnderecosController(Resource):
-
-
     def get(self):
-
-        logger.info(
-            "Listando endereços"
-        )
-
-
+        logger.info("Listando endereços")
         filtros = {
-
-            "cidade": request.args.get("cidade"),
-
-            "estado": request.args.get("estado")
-
+            "logradouro": request.args.get("logradouro"),
+            "cep": request.args.get("cep"),
+            "avicultor_id": request.args.get("avicultor_id")
         }
 
+        enderecos = EnderecoService().getAll(filtros)
 
-        enderecos = EnderecoService().getAll(
-            filtros
-        )
-
-
-        return [
-
-            e.toDict()
-
-            for e in enderecos
-
-        ], 200
-
-
-
+        return [e.toDict() for e in enderecos], 200
 
     def post(self):
-
-        logger.info(
-            "Criando endereço"
-        )
-
-
-        endereco = EnderecoService().create(
-            request.json
-        )
-
+        logger.info("Criando endereço")
+        endereco = EnderecoService().create(request.json)
 
         return endereco.toDict(), 201
