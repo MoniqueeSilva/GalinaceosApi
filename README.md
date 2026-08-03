@@ -1,0 +1,1 @@
+## Aplicação da disciplina de Programação web 2, utilizando Flask-RESTful e SQLAlchemy
