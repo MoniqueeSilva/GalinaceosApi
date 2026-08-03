@@ -1,11 +1,18 @@
 from helpers.application import app, api
 from helpers.database import db
 
+from models.Galinaceo import Galinaceo
+from models.Avicultor import Avicultor
+
 from controllers.GalinaceoController import (
     GalinaceosController,
     GalinaceoController
 )
 
+from controllers.AvicultorController import (
+    AvicultoresController,
+    AvicultorController
+)
 
 @app.get("/")
 def index():
@@ -18,6 +25,9 @@ def healthCheck():
 
 api.add_resource(GalinaceosController, "/galinaceos")
 api.add_resource(GalinaceoController, "/galinaceos/<int:id>")
+
+api.add_resource(AvicultoresController, "/avicultores")
+api.add_resource(AvicultorController, "/avicultores/<int:id>")
 
 with app.app_context():
     db.create_all()
